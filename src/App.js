@@ -1,9 +1,8 @@
 import React from "react"
-// import components
+// Components
 import Header from "./components/Header"
 import Home from "./components/Home"
-
-// import global-style
+// Global style
 import { GlobalStyle } from "./GlobalStyle"
 
 function App() {

@@ -3,6 +3,7 @@ import React from "react"
 import { useHomeFetch } from "../hooks/useHomeFetch"
 // Components
 import HeroImage from "./HeroImage"
+import Grid from "../components/Grid"
 // Config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config"
 
@@ -17,6 +18,12 @@ function Home() {
           text={movies.results[0].overview}
         />
       ) : null}
+      <Grid>
+        {movies.results.map((movie) => (
+          <div key={movie.id}>{movie.title}</div>
+        ))}
+        {/* <div key={movie.id}>{movie.title}</div> เป็น array-component ลูกของ Grid */}
+      </Grid>
     </>
   )
 }
