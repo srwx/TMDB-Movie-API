@@ -4,6 +4,7 @@ import { useHomeFetch } from "../hooks/useHomeFetch"
 // Components
 import HeroImage from "./HeroImage"
 import Grid from "../components/Grid"
+import Thumb from "./Thumb"
 // Config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config"
 
@@ -20,9 +21,12 @@ function Home() {
       ) : null}
       <Grid>
         {movies.results.map((movie) => (
-          <div key={movie.id}>{movie.title}</div>
+          <Thumb
+            key={movie.id}
+            image={IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path}
+            clickable
+          />
         ))}
-        {/* <div key={movie.id}>{movie.title}</div> เป็น array-component ลูกของ Grid */}
       </Grid>
     </>
   )

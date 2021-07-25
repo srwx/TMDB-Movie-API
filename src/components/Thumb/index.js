@@ -2,8 +2,12 @@ import React from "react"
 // Styles
 import { Image } from "./Thumb.styles"
 
-function Thumb() {
-  return <div></div>
+function Thumb({ image, movieid, clickable }) {
+  return (
+    <div>
+      <Image src={image} alt="movie-thumb" />
+    </div>
+  )
 }
 
 export default Thumb
