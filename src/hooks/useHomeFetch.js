@@ -12,10 +12,11 @@ const initialMoviesState = {
 }
 
 export const useHomeFetch = () => {
-  const [movies, setMovies] = useState(initialMoviesState)
+  const [movies, setMovies] = useState(initialMoviesState) // used for <HeroImage />, <Grid /> in Home.js
+  const [searchTerm, setSearchTerm] = useState("") // used for <Searchbar /> in Home.js
 
   // function for fetch movie from TMDB-API
-  const getPopularMovies = async (page, searchKey = "") => {
+  const getPopularMovies = async (page, searchKey) => {
     try {
       const data = await API.fetchMovies(searchKey, page)
       setMovies(data)
@@ -25,8 +26,8 @@ export const useHomeFetch = () => {
   }
 
   useEffect(() => {
-    getPopularMovies(1)
-  }, [])
+    getPopularMovies(1, searchTerm)
+  }, [searchTerm])
 
-  return { movies }
+  return { movies, searchTerm, setSearchTerm }
 }

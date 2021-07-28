@@ -1,25 +1,31 @@
 import React from "react"
+
 // Custom hook
 import { useHomeFetch } from "../hooks/useHomeFetch"
-// Components
-import HeroImage from "./HeroImage"
-import Grid from "../components/Grid"
-import Thumb from "./Thumb"
+
 // Config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config"
 
+// Components
+import HeroImage from "./HeroImage"
+import Grid from "./Grid"
+import Thumb from "./Thumb"
+import Spinner from "./Spinner"
+import SearchBar from "./SearchBar"
+
 function Home() {
-  const { movies } = useHomeFetch()
+  const { movies, searchTerm, setSearchTerm } = useHomeFetch()
   return (
     <>
-      {movies.results[0] ? (
+      {!searchTerm && movies.results[0] ? (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movies.results[0].backdrop_path}`}
           title={movies.results[0].original_title}
           text={movies.results[0].overview}
         />
       ) : null}
-      <Grid>
+      <SearchBar setSearchTerm={setSearchTerm} />
+      <Grid header="Popular movies">
         {movies.results.map((movie) => (
           <Thumb
             key={movie.id}
@@ -28,6 +34,7 @@ function Home() {
           />
         ))}
       </Grid>
+      <Spinner />
     </>
   )
 }
