@@ -20,8 +20,6 @@ function Home() {
 
   if (error) return <div>Error, can't get data from TMDB API</div>
 
-  console.log(movies)
-
   return (
     <>
       {!searchTerm && movies.results[0] ? (

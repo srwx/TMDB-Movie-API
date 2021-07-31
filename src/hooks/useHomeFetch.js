@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import API from "../API"
+import { isPresistedState } from "../helpers"
 
 // อ้างอิง properties จากก้อน object ที่ TMDB-API ส่งกลับมา
 const initialMoviesState = {
@@ -37,6 +38,17 @@ export const useHomeFetch = () => {
 
   // get movies for first landing in home page, get movies for search bar
   useEffect(() => {
+    // เช็คว่ามีค่าใน sessionStorage หรือไม่ ถ้ามี ให้ดึงค่าใน sessionStorage มาเก็บใน moviesState แทน
+    const sessionState = isPresistedState("homeState")
+    if (sessionState && !searchTerm) {
+      // ถ้าใน sessionStorage มีเก็บค่าไว้ ให้ดึงค่านั้นมาเก็บเป็น state แทน
+      console.log(`Grabbing from sessionStorage`)
+      setMovies(sessionState)
+      return
+    }
+
+    // ถ้าไม่มีค่าใน sessionStorage ให้ดึงข้อมูลจาก API มาเก็บเป็น state (จะทำงานตรงนี้เฉพาะครั้งแรกที่เปิดเว็ป)
+    console.log(`Grabbing from API`)
     getPopularMovies(1, searchTerm)
   }, [searchTerm])
 
@@ -47,6 +59,11 @@ export const useHomeFetch = () => {
     getPopularMovies(movies.page + 1, searchTerm)
     setLoadMore(false)
   }, [loadMore])
+
+  // Write current state to sessionStorage
+  useEffect(() => {
+    if (!searchTerm) sessionStorage.setItem("homeState", JSON.stringify(movies)) // parameter แรก ชื่อต้องตรงกับ session ที่จะดึงมาใช้ด้วย, parameter 2 คือค่าที่จะเก็บใน session (ต้องเป็น string เท่านั้น)
+  }, [movies, searchTerm])
 
   return { movies, loading, error, searchTerm, setSearchTerm, setLoadMore }
 }

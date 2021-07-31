@@ -17,9 +17,10 @@ import Spinner from "./Spinner"
 
 function Movie() {
   const { id } = useParams()
-  const { movie, loading } = useMovieFetch(id)
+  const { movie, loading, error } = useMovieFetch(id)
 
   if (loading) return <Spinner />
+  if (error) return <div>Something went wrong...</div>
 
   return (
     <>

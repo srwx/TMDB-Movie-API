@@ -1,4 +1,3 @@
-// Style
-import { Spinner } from "./Spinner.styles"
+import { Spinner } from './Spinner.styles';
 
-export default Spinner
+export default Spinner;
