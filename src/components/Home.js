@@ -15,10 +15,22 @@ import SearchBar from "./SearchBar"
 import Button from "./Button"
 
 function Home() {
-  const { movies, loading, error, searchTerm, setSearchTerm, setLoadMore } =
-    useHomeFetch()
+  const {
+    movies,
+    loading,
+    error,
+    searchTerm,
+    setSearchTerm,
+    setLoadMore,
+    handleClick,
+    scrollPosition,
+  } = useHomeFetch()
 
   if (error) return <div>Error, can't get data from TMDB API</div>
+
+  if (scrollPosition) {
+    window.scrollTo(0, parseInt(scrollPosition))
+  }
 
   return (
     <>
@@ -37,13 +49,20 @@ function Home() {
             image={IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path}
             movieid={movie.id}
             clickable
+            handleClick={handleClick}
           />
         ))}
       </Grid>
       {loading ? (
         <Spinner />
       ) : (
-        <Button text="Load more" callback={() => setLoadMore(true)} />
+        <Button
+          text="Load more"
+          callback={() => {
+            setLoadMore(true)
+            handleClick()
+          }}
+        />
       )}
     </>
   )

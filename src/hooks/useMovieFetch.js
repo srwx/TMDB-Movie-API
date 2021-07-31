@@ -6,7 +6,7 @@ export const useMovieFetch = (movieId) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  // useEffect() จะทำงานหลังคำสั่ง return
+  // useEffect() จะทำงานหลังคำสั่ง return ของฟังก์ชันนี้
   useEffect(() => {
     const getMovie = async (movieId) => {
       try {
