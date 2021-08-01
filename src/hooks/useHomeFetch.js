@@ -38,6 +38,7 @@ export const useHomeFetch = () => {
     }
   }
 
+  // function for set scroll position to session storage
   const handleClick = () => {
     sessionStorage.setItem("scrollPosition", window.pageYOffset)
   }
