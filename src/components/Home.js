@@ -28,7 +28,7 @@ function Home() {
 
   if (error) return <div>Error, can't get data from TMDB API</div>
 
-  if (scrollPosition) {
+  if (scrollPosition && loading) {
     window.scrollTo(0, parseInt(scrollPosition))
   }
 
